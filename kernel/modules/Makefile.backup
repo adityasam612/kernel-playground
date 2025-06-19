@@ -1,0 +1,89 @@
+cat > Makefile << 'EOF'
+# Makefile for ipv6_counter kernel module
+
+# Module name and object files
+obj-m := ipv6_counter_basic.o
+
+# Kernel build directory - try system headers first, fallback to local source
+KERNEL_BUILD := /lib/modules/$(shell uname -r)/build
+LOCAL_KERNEL := /home/adi/kernel-playground/kernel/linux
+
+# Check if system headers exist, otherwise use local kernel source
+ifeq ($(wildcard $(KERNEL_BUILD)),)
+    KERNEL_BUILD := $(LOCAL_KERNEL)
+endif
+
+# Default target
+all:
+	make -C $(KERNEL_BUILD) M=$(PWD) modules
+
+# Clean target
+clean:
+	make -C $(KERNEL_BUILD) M=$(PWD) clean
+	rm -f *.o *.ko *.mod.c *.mod *.order *.symvers
+
+# Install module (optional)
+install:
+	make -C $(KERNEL_BUILD) M=$(PWD) modules_install
+
+# Load module
+load:
+	sudo insmod ipv6_counter_basic.ko
+
+# Unload module
+unload:
+	sudo rmmod ipv6_counter_basic
+
+# Show module info
+info:
+	modinfo ipv6_counter_basic.ko
+
+# Show kernel logs
+logs:
+	dmesg | tail -20
+
+.PHONY: all clean install load unload info logs
+EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Unload module
+unload:
+	sudo rmmod ipv6_counter_basic
+
+# Show module info
+info:
+	modinfo ipv6_counter_basic.ko
+
+# Show kernel logs
+logs:
+	dmesg | tail -20
+
+.PHONY: all clean install load unload info logs

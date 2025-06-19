@@ -1,41 +1,26 @@
-# Custom Kernel Module for Networking Extension
+# M1 – IPv6 Packet Counter (Kernel Module)
 
-This project demonstrates how to create a custom Linux kernel module designed to extend the kernel's networking capabilities by adding new features.
+## ✅ Project Description
 
-## Usage Instructions
+This project implements an IPv6 packet counter using a Linux kernel module (Netfilter hook).  
+It tracks incoming IPv6 packets, exports the counter to user space using `/proc`,  
+and visualizes the result in real time with Python.
 
-The directory contains a `Makefile` with predefined targets to manage the build and installation process:
+## ✅ Features
 
-### Targets
+- Kernel module counts all IPv6 packets.
+- Exports real-time stats via `/proc/ipv6_counter`.
+- Python script polls and visualizes the count live.
 
-- **build**: Compile the kernel module. This will generate a `.ko` file that can be loaded into the kernel.
-  
-- **install**: Copy the compiled `.ko` module into the shared folder accessible within your VM. This shared folder is linked via a symbolic link named `shared` in the current directory, allowing easy access from the Guest OS running in the VM.
-  
-- **clean**: Remove all build artifacts, including the `.ko` file, to clean up the directory for a fresh build.
+## ✅ How to Build and Run
 
-## How to Use
+```bash
+make
+sudo insmod ipv6_counter_advance.ko
+cat /proc/ipv6_counter  # Check the count
+IPv6 Packets: 0
+IPv6 Packets: 8
+IPv6 Packets: 15
+...
 
-1. **Build the module**
 
-   ```bash
-   make build
-   ```
-
-2. **Install the module**
-
-   ```bash
-   make install
-   ```
-
-3. **Clean build artifacts**
-
-   ```bash
-   make clean
-   ```
-
-Ensure that your environment has the necessary kernel headers and build tools installed to successfully compile the module.
-
----
-
-*Note:* The actual kernel module source code should be in the `linux` directory, and the `Makefile` is configured to compile it accordingly.
