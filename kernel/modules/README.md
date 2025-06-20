@@ -22,9 +22,5 @@ IPv6 Packets: 0
 IPv6 Packets: 8
 IPv6 Packets: 15
 ...
-for advance out put 
-IPv6 Packets: 0
-IPv6 Packets: 2
-IPv6 Packets: 4
-...
+
 
